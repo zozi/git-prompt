@@ -283,8 +283,8 @@ set_shell_label() {
         # if    { for ((pid=$$; $pid != 1 ; pid=`ps h -o pid --ppid $pid`)); do ps h -o command -p $pid; done | grep -q sshd && echo == REMOTE ==; }
         #then
 
-        host=${HOSTNAME}
-        #host=`hostname -s`
+        #host=${HOSTNAME}
+        host=`hostname -s`
         host=${host#$default_host}
         uphost=`echo ${host} | tr a-z A-Z`
         if [[ $upcase_hostname = "on" ]]; then
@@ -510,7 +510,8 @@ parse_git_status() {
                         fi
                         #branch="<$branch>"
                 fi
-                vcs_info="$branch$white=$rawhex"
+                #vcs_info="$branch$white=$rawhex"
+                vcs_info="$branch"
 
         fi
  }
@@ -580,7 +581,9 @@ parse_vcs_status() {
         fi
 
 
-        head_local="(${vcs_info}$vcs_color${file_list}$vcs_color)"
+        #head_local="(${vcs_info}$vcs_color${file_list}$vcs_color)"
+        #head_local="(${vcs_info}$vcs_color$vcs_color)"
+        head_local="[${vcs_info}$vcs_color$vcs_color]"
 
         ### fringes
         head_local="${head_local+$vcs_color$head_local }"
@@ -641,7 +644,8 @@ prompt_command_function() {
         # else eval cwd_cmd,  cwd should have path after exection
         eval "${cwd_cmd/\\/cwd=\\\\}"
 
-        PS1="$colors_reset$rc$head_local$color_who_where$dir_color$cwd$tail_local$dir_color$prompt_char $colors_reset"
+        # PS1="$colors_reset$rc$head_local$color_who_where$dir_color$cwd$tail_local$dir_color$prompt_char $colors_reset"
+        PS1="$colors_reset$rc$color_who_where$dir_color$cwd $head_local$tail_local$dir_color$prompt_char $colors_reset"
 
         unset head_local tail_local pwd
  }
