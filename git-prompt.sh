@@ -581,6 +581,10 @@ parse_vcs_status() {
         fi
 
 
+        if [[ $status = 'clean' ]]  ;  then
+        	vcs_info="${vcs_info}✓"
+				fi
+
         #head_local="(${vcs_info}$vcs_color${file_list}$vcs_color)"
         #head_local="(${vcs_info}$vcs_color$vcs_color)"
         head_local="[${vcs_info}$vcs_color$vcs_color]"
