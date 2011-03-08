@@ -103,6 +103,8 @@
                cyan='\['`tput sgr0; tput setaf 6`'\]'
               white='\['`tput sgr0; tput setaf 7`'\]'
 
+              blue_background='\['`tput sgr0; tput setab 4`'\]'
+
               BLACK='\['`tput setaf 0; tput bold`'\]'
                 RED='\['`tput setaf 1; tput bold`'\]'
               GREEN='\['`tput setaf 2; tput bold`'\]'
@@ -291,15 +293,7 @@ set_shell_label() {
                 host=${uphost}
         fi
 
-        host_color=${uphost}_host_color
-        host_color=${!host_color}
-        if [[ -z $host_color && -x /usr/bin/cksum ]] ;  then
-                cksum_color_no=`echo $uphost | cksum  | awk '{print $1%7}'`
-                color_index=(green yellow blue magenta cyan white)              # FIXME:  bw,  color-256
-                host_color=${color_index[cksum_color_no]}
-        fi
-
-        host_color=${!host_color}
+        host_color=${blue_background}
 
         # we might already have short host name
         host=${host%.$default_domain}
@@ -322,7 +316,7 @@ set_shell_label() {
                         user_id_color=$root_id_color
                         prompt_char="$root_prompt_char"
                 fi
-                color_who_where="$user_id_color$color_who_where$colors_reset"
+                color_who_where="$user_id_color $color_who_where$colors_reset "
         else
                 color_who_where=''
         fi
